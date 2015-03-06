@@ -65,7 +65,9 @@
       /* Precedence of positions, when auto is enabled */
       positionPrecedence: ["bottom", "top", "right", "left"],
       /* Disable an interaction with element? */
-      disableInteraction: false
+      disableInteraction: false,
+      /* Tooltip image to replace element*/
+      toolTipImage:''
     };
   }
 
@@ -632,12 +634,18 @@
       if (currentElement.position == 'floating') {
         widthHeightPadding = 0;
       }
+      if (typeof (this._options.toolTipImage) ==='string' && this._options.toolTipImage.length>0){
+        bkgImg = 'background-image:url('+this._options.toolTipImage+');';
+      } else {
+        bkgImg = ''
+      }
 
       //set new position to helper layer
       helperLayer.setAttribute('style', 'width: ' + (elementPosition.width  + widthHeightPadding)  + 'px; ' +
                                         'height:' + (elementPosition.height + widthHeightPadding)  + 'px; ' +
                                         'top:'    + (elementPosition.top    - 5)   + 'px;' +
-                                        'left: '  + (elementPosition.left   - 5)   + 'px;');
+                                        'left: '  + (elementPosition.left   - 5)   + 'px;' +
+                                        bkgImg);
 
     }
   }
@@ -792,7 +800,6 @@
       if (this._options.showBullets === false) {
         bulletsLayer.style.display = 'none';
       }
-
 
       var ulContainer = document.createElement('ul');
 
